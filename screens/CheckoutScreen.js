@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Box, Button, Icon, Pressable } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { CartContext } from "../context/CartContext";
 
 const CheckoutScreen = ({ navigation }) => {
   // Dummy data for checkout details
   const deliveryAddress = "123 Main Street, City, Country";
-  const totalItemCost = 50;
-  const deliveryCost = 10;
-  const totalCost = totalItemCost + deliveryCost;
+  const deliveryCost = 25;
   const defaultPaymentMethod = "Wallet";
+
+  const { cartItems } = useContext(CartContext);
+
+  const itemsCost = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 
   return (
     <Box style={styles.container}>
@@ -36,15 +42,19 @@ const CheckoutScreen = ({ navigation }) => {
         <Box style={styles.card}>
           <Box style={styles.flexCardItems}>
             <Text style={styles.cardText}>Total Item Cost:</Text>
-            <Text style={styles.boldText}>${totalItemCost}</Text>
+            <Text style={styles.boldText}>${itemsCost.toLocaleString()}</Text>
           </Box>
           <Box style={styles.flexCardItems}>
             <Text style={styles.cardText}>Delivery Cost:</Text>
-            <Text style={styles.boldText}>${deliveryCost}</Text>
+            <Text style={styles.boldText}>
+              ${deliveryCost.toLocaleString()}
+            </Text>
           </Box>
           <Box style={styles.flexCardItems}>
             <Text style={styles.cardText}>Total Cost:</Text>
-            <Text style={styles.boldText}>${totalCost}</Text>
+            <Text style={styles.boldText}>
+              ${(itemsCost + deliveryCost).toLocaleString()}
+            </Text>
           </Box>
         </Box>
       </Box>
