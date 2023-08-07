@@ -1,4 +1,4 @@
-# Hypothetical E-Commerce App - Frontend Implementation
+# E-Commerce App
 
 This repository contains the frontend implementation of a hypothetical E-commerce app, showcasing key features such as user authentication, product listing, and checkout process.
 
